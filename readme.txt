@@ -4,7 +4,7 @@ Donate link: http://www.kylembrown.com/step-by-step
 Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown
 Requires at least: 3.6.1
 Tested up to: 3.9.1
-Stable tag: 0.1.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,15 +82,6 @@ A. Yes and No. The step-by-step admin interface called 'Guides' is separate from
 7. Completed page displaying a guide made up of step-by-step instructions.
 
 == Changelog ==
-
-= 0.1.1 =
-
-* Corrected undefined indexes errors seen upon visiting Add New Guides page
-* Corrected errors seen when deleting a guide
-* Corrected greyed save buttons when attempting to save a new guide.
-* Corrected non displaying steps when preview button is clicked
-* Corrected offset error messages at top of pages where shortcode had been pasted.
-* Added a link on the plugins page to access Add New Guides page quickly
 
 = 0.1.0 =
 
