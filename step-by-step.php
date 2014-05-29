@@ -1,0 +1,335 @@
+<?php
+/**
+ *
+ * @package   Step by Step
+ * @author    Kyle M. Brown <kyle@kylembrown.com>
+ * @license   GPL-2.0+
+ * @link      http://kylembrown.com/step-by-step
+ * @copyright 2014 Kyle M. Brown
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Step by Step
+ * Plugin URI:        http://kylembrown.com/step-by-step
+ * Description:       Create step-by-step instructions with images and display them on WordPress post or pages.
+ * Version:           0.1.0
+ * Author:            Kyle M. Brown
+ * Author URI:        http://kylembrown.com
+ * Text Domain:       step-by-step
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Domain Path:       /languages
+ * GitHub Plugin URI: https://github.com/<owner>/<repo>
+ */
+
+function sbs_custom_admin_head(){
+	echo '<script type="text/javascript">
+			jQuery(document).ready( function(){
+				jQuery("#post").attr("enctype","multipart/form-data");
+	    } );
+	</script>';
+}
+add_action('admin_head', 'sbs_custom_admin_head');
+function custom_post_type()
+{
+
+	$labels = array(
+		'name'               => _x( 'Guides', 'post type general name' ),
+		'singular_name'      => _x( 'Guide', 'post type singular name' ),
+		'add_new'            => _x( 'Add New', 'guide' ),
+		'add_new_item'       => __( 'Add New Guide' ),
+		'edit_item'          => __( 'Edit Guide' ),
+		'new_item'           => __( 'New Guide' ),
+		'all_items'          => __( 'All Guides' ),
+		'view_item'          => __( 'View Guides' ),
+		'search_items'       => __( 'Search Guides' ),
+		'not_found'          => __( 'No guides found' ),
+		'not_found_in_trash' => __( 'No guides found in the Trash' ), 
+		'parent_item_colon'  => '',
+		'menu_name'          => 'Guides'
+	);
+	$args = array(
+		'labels'        => $labels,
+		'description'   => 'Holds our articles and article specific data',
+		'public'        => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'rewrite'            => array('slug'=>'article','with_front'=>false),
+		'query_var'          => true,
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => 5,
+		/*'menu_icon'          => '/absolute/url/to/icon',*/
+		'supports'      => array( 'title', 'editor', 'thumbnail')
+		
+	);
+	register_post_type( 'article', $args );	
+	
+
+}
+add_action( 'init', 'custom_post_type' );
+
+add_filter( 'post_updated_messages', 'sbs_updated_messages' );
+
+function sbs_updated_messages( $messages ) {
+	global $post, $post_ID;
+	$messages['article'] = array(
+		0 => '', 
+		1 => sprintf( __('Guide updated. <a href="%s">View product</a>'), esc_url( get_permalink($post_ID) ) ),
+		2 => __('Custom field updated.'),
+		3 => __('Custom field deleted.'),
+		4 => __('Guide updated.'),
+		5 => isset($_GET['revision']) ? sprintf( __('Article restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => sprintf( __('Guide published. <a href="%s">View product</a>'), esc_url( get_permalink($post_ID) ) ),
+		7 => __('Guide saved.'),
+		8 => sprintf( __('Article submitted. <a target="_blank" href="%s">Preview product</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+		9 => sprintf( __('Article scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview product</a>'), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+		10 => sprintf( __('Guide draft updated. <a target="_blank" href="%s">Preview product</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+	);
+	return $messages;
+}
+
+//adding the meta box when the admin panel initialises
+add_action("admin_init", "add_article_metabox");
+
+
+function add_article_metabox(){
+    add_meta_box('manage_steps', 'Manage Guide Steps', 'steps_meta', 'article', 'normal', 'default');
+}
+
+
+function steps_meta($post, $args) { 
+	$steps_meta = get_post_meta($post->ID, 'meta-step', true);
+
+	?>
+	<div id="mainstep">
+	   <?php if(isset($steps_meta['step']) && count($steps_meta['step'])>0) { 
+		$i = 1;
+		foreach($steps_meta['step'] as $key => $value) {
+			?>
+			<div id='step<?php echo $i;?>' style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
+				<p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv('<?php echo 'step'.$i;?>');">- Delete Step</a></p>
+				<p>Step<span style="color:red;">*</span><br> <span><input type="text" size="40" value="<?php echo  $value;?>" name="step[]" id="step"></span></p>
+				
+				<p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"><?php echo  $steps_meta['step_title'][$key];?></textarea></span></p>
+				
+				<p>Note<span style="color:red;">*</span><br> <span><input type="text" size="40" value="<?php echo $steps_meta['note'][$key];?>" name="note[]" id="note"></span></p>
+				<p>
+				<?php
+				if(isset($steps_meta['step_image'][$key]) && !empty($steps_meta['step_image'][$key])) {
+					$image_attributes = wp_get_attachment_image_src( $steps_meta['step_image'][$key] ); 
+				?>
+					<img style="vertical-align: middle;" src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">&nbsp;&nbsp;<a href="javascript:void(0);" alt="Remove" title="Remove" onclick="return remove_attachement('<?php echo $steps_meta['step_image'][$key];?>',<?php echo $post->ID;?>)">Remove</a><img id="loader" style="display: none;margin: 0 auto;text-align: center;" src="<?php echo plugins_url()?>/step-by-step/includes/images/loader.gif" />
+					<p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+				<?php }else { ?>
+				</p>
+				<p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+				<?php } ?>
+			</div>
+			<?php
+			$i++;
+		 }	
+		} else {?>
+			<div id='step1' style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
+			<p>Step<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="step[]" id="step"></span></p>
+			
+			<p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"></textarea></span></p>
+			
+			<p>Note<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p>
+			<p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+		</div>
+		<?php } ?>
+	</div>
+	<div style="clear:both;"></div>
+	<div style="padding-bottom:5px;text-align:right;color:#fff;"><a href="javascript:void(0);" onClick="addmorediv()">+ Add Step</a></div>
+	<input type="hidden" name="step_count" id="step_count" value="1">
+
+	<?php if(count($steps_meta['step'])>0) { ?>
+
+		<div style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
+		<p>Get the Short Code</span><br> <span>
+		<textarea rows="3" cols="40" readonly>[display_article id='<?php echo $post->ID; ?>' type='article']</textarea>
+		</span>
+		</div>
+		
+	<?php } ?>
+
+
+<script>
+function remove_attachement(attachementID, postID)
+{
+	var actionHandler = "<?php echo home_url('/wp-content/plugins/step-by-step/includes/delete_image.php')?>";
+	jQuery.ajax({
+		type: "POST",
+		url: actionHandler,
+		data: "attachementID="+attachementID+"&postID="+postID,
+		beforeSend: function(msg)
+		{
+			jQuery("#loader").show();
+		},
+		success: function(msg)
+		{	
+			jQuery("#loader").hide();
+			jQuery("#step_img").show();		
+			window.setTimeout('location.reload()', 1000);
+		}
+	});
+}
+function addmorediv()
+{
+	var cnt = jQuery('#step_count').val();
+	cnt = parseInt(cnt)+1;
+	jQuery('#mainstep').append('<div id="step'+cnt+'" style="padding-top:10px;background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);"><p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv(\'step'+cnt+'\');">- Delete Step</a></p><p>Step<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="step[]" id="step"></span></p><p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"></textarea></span></p><p>Note<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p><p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p></div>');
+	jQuery('#step_count').val(cnt);
+}
+function removeDiv(divId)
+{
+	jQuery('#'+divId).remove();
+}
+
+</script>
+<?php } 
+
+
+function prfx_meta_save( $post_id ) {
+	
+	
+	$steps_meta = get_post_meta($post_id, 'meta-step', true);
+	$attached_file_array = $steps_meta['step_image'];
+	if(!is_array($attached_file_array)) { $attached_file_array = array(); }// Kyle added to fix "in_array() expects parameter" 2 to be array error on line 228
+	
+
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+	// required for wp_handle_upload() to upload the file
+	$upload_overrides = array( 'test_form' => FALSE );
+
+
+    // count how many files were uploaded
+	//$count_files = count( $_FILES['step_image'] );
+ 
+	// load up a variable with the upload direcotry
+	$uploads = wp_upload_dir();
+ 
+	// foreach file uploaded do the upload
+
+
+	if(!empty($_FILES['step_image']['name'])){//Kmb to fix array error
+		
+	foreach($_FILES['step_image']['name'] as $key => $filenamevalue) {
+		
+		$attach_id = '';
+		if(isset($_FILES['step_image']['name'][$key]) && $_FILES['step_image']['error'][$key]!='4'){
+
+			wp_delete_attachment( $steps_meta['step_image'][$key] );
+			
+			if (in_array($steps_meta['step_image'][$key], $attached_file_array)) 
+			{
+				unset($attached_file_array[array_search($steps_meta['step_image'][$key],$attached_file_array)]);
+			}
+
+ 
+			// create an array of the $_FILES for each file
+			$file_array = array(
+				'name' => $filenamevalue,
+				'type' => $_FILES['step_image']['type'][$key],
+				'tmp_name' => $_FILES['step_image']['tmp_name'][$key],
+				'error' => $_FILES['step_image']['error'][$key],
+				'size' => $_FILES['step_image']['size'][$key],
+			);
+
+			// check to see if the file name is not empty
+			if ( !empty( $file_array['name'] ) ) {
+	 
+				// upload the file to the server
+				$uploaded_file = wp_handle_upload( $file_array, $upload_overrides );
+
+				// Check the type of tile. We'll use this as the 'post_mime_type'.
+				$filetype = wp_check_filetype( basename( $uploaded_file['file'] ), null );
+
+				
+				// Prepare an array of post data for the attachment.
+				$attachment = array(
+					'guid'           => $uploads['url'] . '/' . basename( $uploaded_file['file'] ), 
+					'post_mime_type' => $filetype['type'],
+					'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $uploaded_file['file'] ) ),
+					'post_content'   => '',
+					'post_status'    => 'inherit'
+				);
+
+				$imagename =  $uploads['url'] . '/' . basename($uploaded_file['file'] );
+
+				// Insert the attachment.
+				$attach_id = wp_insert_attachment( $attachment, $imagename, $post_id );
+
+				// Generate the metadata for the attachment, and update the database record.
+				$attach_data = wp_generate_attachment_metadata( $attach_id, $imagename );
+				wp_update_attachment_metadata( $attach_id, $attach_data );
+				$attached_file_array[$key] =  $attach_id;
+
+				
+				
+		
+			}
+		}
+	}
+}//	End if(!empty ->
+	$result = array('step'=>$_POST['step'], 'step_title'=>$_POST['step_title'],'note'=>$_POST['note'],'step_image'=>$attached_file_array);
+	update_post_meta( $post_id, 'meta-step',  $result );
+}
+add_action( 'save_post', 'prfx_meta_save' );
+
+
+function article_func( $atts ) {
+    ini_set('display_errors',1);
+	if(isset($atts['id']))
+	{
+		 $post_id = sanitize_text_field( $atts['id'] );
+		 $post_type= sanitize_text_field( $atts['type'] );
+		 $post = get_post( $post_id );
+		 $thumb_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium');
+
+
+
+		$article_steps_meta = get_post_meta($post_id, 'meta-step', true);
+	
+
+
+		$string ='<table cellspacing="5" cellpadding="5" border="0" >';
+		$string .= '<TR><TD colspan="2" valign="top"><strong>'.$post->post_title.'</strong></td></TR>';
+		if($thumb_image_url[0]!='')
+			$string .='<TR><TD><img src="'.$thumb_image_url[0].'" alt="'.$post->post_content.'"></TD><TD style="vertical-align:top;">'.$post->post_content.'</td> </TR>';
+		else
+			$string .='<TR><TD colspan="2" valign="top">'.$post->post_content.'</td> </TR>';
+
+
+		if(count($article_steps_meta["step"])) {
+
+	//		$stepsArray = array_chunk($article_steps_meta["step"], 3);
+			//echo "<pre>";print_r($article_steps_meta);
+			$string .='<tr><td colspan="2">&nbsp;</td></tr><tr><td colspan="2"><table cellspacing="5" cellpadding="5" border="0"><tr>';
+			//foreach($stepsArray as $value)
+
+
+			for($i=0;$i<count($article_steps_meta["step"]);$i++){ 				
+				 $kk=wp_get_attachment_image_src( $article_steps_meta["step_image"][$i], 'thumbnail', true );
+				
+				if($kk[0]!='')
+					$imgString='<img src="'.$kk[0].'" width="'.$kk[1].'"  height="'.$kk[2].'" >';				
+				else
+					$imgString='';
+				$string .='<td width="33%" valign="top">' .$imgString.'<br><br><strong>'.$article_steps_meta["step"][$i].' </strong><br><br>'.$article_steps_meta["step_title"][$i].'<br><br><strong>'.substr($article_steps_meta["note"][$i],0,125).'</strong></td>';
+								
+			
+				if(($i+1)%3==0) {$string .='</tr><tr>';}
+			 } 
+			$string .='</tr></table></td></tr></table>';
+		}
+		
+		echo $string .=' </div>';
+	}
+}
+add_shortcode( 'display_article', 'article_func' );
+?>
