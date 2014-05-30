@@ -14,7 +14,7 @@ Create step-by-step instructions with images and display them on your post or pa
 
 Display your data step-by-step style with images and display them on your post or pages in minutes with ease. Keep the standard WYSIWYG content separate from your step-by-step instructions for easy editing. 
 
-###"Step by Step Features###
+###Step by Step Features###
 
 * Create step-by-step instructions with ease.
 * Each step is created in its own separate module.
@@ -99,6 +99,7 @@ Release to the public.
 * Corrected non displaying steps when preview button is clicked
 * Corrected offset error messages at top of pages where shortcode had been pasted.
 * Added a link on the plugins page to access Add New Guides page quickly
+* Added the ability to preview a guide before publishing.
 
 = 0.1.0 =
 
