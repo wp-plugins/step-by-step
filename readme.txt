@@ -1,7 +1,7 @@
 === Step by Step ===
 Contributors: kmb40
 Donate link: http://www.kylembrown.com/step-by-step
-Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown
+Tags: step-by-step, steps, docs,documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown
 Requires at least: 3.6.1
 Tested up to: 3.9.1
 Stable tag: 0.1.1
@@ -56,7 +56,7 @@ You can install this plugin one of three ways:
 5. A new menu item `Guides` will appear in your menu in your Admin section.
 
 = Usage =
-[For complete usage insructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
+[For complete usage instructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
 
 == Frequently Asked Questions ==
 
