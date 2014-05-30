@@ -4,7 +4,7 @@ Donate link: http://www.kylembrown.com/step-by-step
 Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown
 Requires at least: 3.6.1
 Tested up to: 3.9.1
-Stable tag: 0.1.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,14 @@ A. Yes and No. The step-by-step admin interface called 'Guides' is separate from
 5. Add or remove steps at anytime.
 6. Add or remove images.
 7. Completed page displaying a guide made up of step-by-step instructions.
+
+== Upgrade Notice ==
+
+= 0.1.1 =
+Added the ability to preview a guide before publishing. Corrected bugs that were causing errors. 
+
+= 0.1.0 =
+Release to the public.
 
 == Changelog ==
 
