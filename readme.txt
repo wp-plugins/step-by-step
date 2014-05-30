@@ -98,7 +98,7 @@ Release to the public.
 * Corrected greyed save buttons when attempting to save a new guide.
 * Corrected non displaying steps when preview button is clicked
 * Corrected offset error messages at top of pages where shortcode had been pasted.
-* Added a link on the plugins page to access Add New Guides page quickly
+* Added a link on the plugins page to access Add New Guides page quickly.
 * Added the ability to preview a guide before publishing.
 
 = 0.1.0 =
