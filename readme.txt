@@ -81,7 +81,24 @@ A. Yes and No. The step-by-step admin interface called 'Guides' is separate from
 6. Add or remove images.
 7. Completed page displaying a guide made up of step-by-step instructions.
 
+== Upgrade Notice ==
+
+= 0.1.1 =
+Added the ability to preview a guide before publishing. Corrected bugs that were causing errors. 
+
+= 0.1.0 =
+Release to the public.
+
 == Changelog ==
+
+= 0.1.1 =
+
+* Corrected undefined indexes errors seen upon visiting Add New Guides page
+* Corrected errors seen when deleting a guide
+* Corrected greyed save buttons when attempting to save a new guide.
+* Corrected non displaying steps when preview button is clicked
+* Corrected offset error messages at top of pages where shortcode had been pasted.
+* Added a link on the plugins page to access Add New Guides page quickly
 
 = 0.1.0 =
 

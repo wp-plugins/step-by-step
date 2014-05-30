@@ -11,7 +11,7 @@
  * Plugin Name:       Step by Step
  * Plugin URI:        http://kylembrown.com/step-by-step
  * Description:       Create step-by-step instructions with images and display them on WordPress post or pages.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Kyle M. Brown
  * Author URI:        http://kylembrown.com
  * Text Domain:       step-by-step
@@ -44,13 +44,13 @@ function custom_post_type()
 		'view_item'          => __( 'View Guides' ),
 		'search_items'       => __( 'Search Guides' ),
 		'not_found'          => __( 'No guides found' ),
-		'not_found_in_trash' => __( 'No guides found in the Trash' ), 
+		'not_found_in_trash' => __( 'No guides found in the trash' ), 
 		'parent_item_colon'  => '',
 		'menu_name'          => 'Guides'
 	);
 	$args = array(
 		'labels'        => $labels,
-		'description'   => 'Holds our articles and article specific data',
+		'description'   => 'Holds our guides and guide specific data',
 		'public'        => true,
 		'publicly_queryable' => true,
 		'show_ui'            => true,
