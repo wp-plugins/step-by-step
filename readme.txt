@@ -1,10 +1,10 @@
 === Step by Step ===
 Contributors: kmb40
 Donate link: http://www.kylembrown.com/step-by-step
-Tags: step-by-step, steps, docs, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown
+Tags: step-by-step, steps, docs, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, tutorials, how to, kyle m brown
 Requires at least: 3.6.1
 Tested up to: 3.9.1
-Stable tag: trunk
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
