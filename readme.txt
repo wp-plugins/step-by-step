@@ -14,7 +14,7 @@ Create step-by-step instructions with images and display them on your post or pa
 
 Display your data step-by-step style with images and display them on your post or pages in minutes with ease. Keep the standard WYSIWYG content separate from your step-by-step instructions for easy editing. 
 
-###"Step by Step Features###
+###Step by Step Features###
 
 * Create step-by-step instructions with ease.
 * Each step is created in its own separate module.
