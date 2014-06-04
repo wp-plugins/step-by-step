@@ -1,10 +1,10 @@
 === Step by Step ===
 Contributors: kmb40
 Donate link: http://www.kylembrown.com/step-by-step
-Tags: step-by-step, steps, docs, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, tutorials, how to, kyle m brown
+Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown, recipes
 Requires at least: 3.6.1
 Tested up to: 3.9.1
-Stable tag: 0.1.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Create step-by-step instructions with images and display them on your post or pa
 
 Display your data step-by-step style with images and display them on your post or pages in minutes with ease. Keep the standard WYSIWYG content separate from your step-by-step instructions for easy editing. 
 
-###Step by Step Features###
+###"Step by Step Features###
 
 * Create step-by-step instructions with ease.
 * Each step is created in its own separate module.
@@ -56,7 +56,7 @@ You can install this plugin one of three ways:
 5. A new menu item `Guides` will appear in your menu in your Admin section.
 
 = Usage =
-[For complete usage instructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
+[For complete usage insructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
 
 == Frequently Asked Questions ==
 
@@ -98,8 +98,7 @@ Release to the public.
 * Corrected greyed save buttons when attempting to save a new guide.
 * Corrected non displaying steps when preview button is clicked
 * Corrected offset error messages at top of pages where shortcode had been pasted.
-* Added a link on the plugins page to access Add New Guides page quickly.
-* Added the ability to preview a guide before publishing.
+* Added a link on the plugins page to access Add New Guides page quickly
 
 = 0.1.0 =
 
