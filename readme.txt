@@ -56,7 +56,7 @@ You can install this plugin one of three ways:
 5. A new menu item `Guides` will appear in your menu in your Admin section.
 
 = Usage =
-[For complete usage insructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
+[For complete usage instructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
 
 == Frequently Asked Questions ==
 
