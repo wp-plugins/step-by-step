@@ -1,7 +1,7 @@
 === Step by Step ===
 Contributors: kmb40
 Donate link: http://www.kylembrown.com/step-by-step
-Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown, recipes
+Tags: step-by-step, steps, docs, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown
 Requires at least: 3.6.1
 Tested up to: 3.9.1
 Stable tag: trunk
@@ -56,7 +56,7 @@ You can install this plugin one of three ways:
 5. A new menu item `Guides` will appear in your menu in your Admin section.
 
 = Usage =
-[For complete usage insructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
+[For complete usage instructions visit the help page at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step)
 
 == Frequently Asked Questions ==
 
@@ -83,6 +83,12 @@ A. Yes and No. The step-by-step admin interface called 'Guides' is separate from
 
 == Upgrade Notice ==
 
+= 0.2.0 =
+Added the ability to save or remove guides during plugin reinstall / uninstall.
+Changed base category from articles to guides during preview
+Added notice to indicate when guides are being previewed.
+Corrected guides displaying above all body text of the post or page.
+
 = 0.1.1 =
 Added the ability to preview a guide before publishing. Corrected bugs that were causing errors. 
 
@@ -91,6 +97,13 @@ Release to the public.
 
 == Changelog ==
 
+= 0.2.0 =
+
+* Corrected guides displaying above all body text of the post or page.
+* Changed base category from articles to guides during preview
+* Added notice to indicate when guides are being previewed.
+* Added the ability to save or remove guides during plugin reinstall / uninstall.
+
 = 0.1.1 =
 
 * Corrected undefined indexes errors seen upon visiting Add New Guides page
@@ -98,7 +111,8 @@ Release to the public.
 * Corrected greyed save buttons when attempting to save a new guide.
 * Corrected non displaying steps when preview button is clicked
 * Corrected offset error messages at top of pages where shortcode had been pasted.
-* Added a link on the plugins page to access Add New Guides page quickly
+* Added a link on the plugins page to access Add New Guides page quickly.
+* Added the ability to preview a guide before publishing.
 
 = 0.1.0 =
 

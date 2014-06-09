@@ -11,14 +11,14 @@
  * Plugin Name:       Step by Step
  * Plugin URI:        http://kylembrown.com/step-by-step
  * Description:       Create step-by-step instructions with images and display them on WordPress post or pages.
- * Version:           0.1.1
+ * Version:           0.2.0
  * Author:            Kyle M. Brown
- * Author URI:        http://kylembrown.com
+ * Author URI:        http://kylembrown.com/step-by-step
  * Text Domain:       step-by-step
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/<owner>/<repo>
+ * GitHub Plugin URI: https://github.com/kmb40/step-by-step
  */
 
 function sbs_custom_admin_head(){
@@ -29,6 +29,44 @@ function sbs_custom_admin_head(){
 	</script>';
 }
 add_action('admin_head', 'sbs_custom_admin_head');
+
+register_activation_hook(  __FILE__, 'install_step_setting');
+function install_step_setting()
+{
+	$check_setting = get_option( 'step_setting' );
+	if(isset($check_setting) && $check_setting=='0')
+		update_option( 'step_setting', '1' );
+	else if(!isset($check_setting))
+		add_option( 'step_setting', '1', '', 'yes' );
+}
+
+//wordpress hook to delete the file and records form database
+register_uninstall_hook( __FILE__, 'sbs_uninstall' );
+
+function sbs_uninstall()
+{
+	if ( ! current_user_can( 'activate_plugins' ) )
+        return;
+	
+	$sbs_setting='';
+	$sbs_setting = get_option( 'step_setting' );
+
+	if(isset($sbs_setting) && $sbs_setting=='0'){
+		delete_option( 'step_setting' );
+
+		$args = array(
+			'post_type' =>'article'
+		);
+
+		$posts = get_posts( $args );
+		
+		if (is_array($posts)) {
+		   foreach ($posts as $post) {
+			   wp_delete_post( $post->ID, true);			   
+		   }
+		}
+	}
+}
 
 function custom_post_type()
 {
@@ -41,12 +79,12 @@ function custom_post_type()
 		'edit_item'          => __( 'Edit Guide' ),
 		'new_item'           => __( 'New Guide' ),
 		'all_items'          => __( 'All Guides' ),
-		'view_item'          => __( 'View Guides' ),
+		'view_item'          => __( 'View Guide' ),
 		'search_items'       => __( 'Search Guides' ),
 		'not_found'          => __( 'No guides found' ),
 		'not_found_in_trash' => __( 'No guides found in the trash' ), 
 		'parent_item_colon'  => '',
-		'menu_name'          => 'Guides'
+		'menu_name'          => 'Step by Step'
 	);
 	$args = array(
 		'labels'        => $labels,
@@ -55,22 +93,118 @@ function custom_post_type()
 		'publicly_queryable' => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
-		'rewrite'            => array('slug'=>'article','with_front'=>false),
+		'rewrite'            => array('slug'=>'guides','with_front'=>false),
 		'query_var'          => true,
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => 5,
-		/*'menu_icon'          => '/absolute/url/to/icon',*/
+		'menu_icon'          => 'dashicons-format-aside',
 		'supports'      => array( 'title', 'editor', 'thumbnail')
 		
 	);
 	register_post_type( 'article', $args );	
 	
-
 }
 add_action( 'init', 'custom_post_type' );
 
+// function added here to add the setting page
+add_action('admin_menu' , 'sbs_enable_pages');
+
+function sbs_enable_pages() {
+	add_submenu_page('edit.php?post_type=article', 'Step by Step Settings', 'Settings', 'edit_posts', basename(__FILE__), 'sbs_setting');
+}
+
+function sbs_setting() { 
+
+	$setting_val='';
+	$checked='';
+
+	if(isset($_POST['save_settings']) && $_POST['save_settings']=='Save Settings'){
+		if(isset($_POST['step_setting']))
+			$setting_val = $_POST['step_setting'];
+		else
+			$setting_val=0;
+
+		update_option( 'step_setting', $setting_val );
+	}
+	$step_setting = get_option( 'step_setting' );
+
+	if(isset($step_setting) && $step_setting=='1')
+		$checked ="checked=checked";
+	else
+		$checked='';
+
+?>
+
+<div class="wrap">
+     <h2 style="margin-bottom:50px;">Step by Step Settings</h2>
+	 <div style="width:65%;float:left;">
+	 <form name="step" id="step" action="" method="post">
+		<p style="font-size:14px;width:20%;float:left;"><strong>Save Settings and Guides</strong></p>
+
+		<p style="font-size:14px;width:80%;float:left;">
+			<input type="checkbox" name="step_setting" id="step_setting" value="1" <?php echo $checked;?>> Save your settings and existing guides when uninstalling this plugin. Useful when upgrading or re-installing. 
+			<br/><br/><strong>Note:</strong>If you deselect this box ALL of your guides will be erased when the plugin is uninstalled.
+		</p>
+
+		<p style="clear:both;"></p>
+
+		<p style="width:80%;float:right">
+			<input type="submit" name="save_settings" id="save_settings" value="Save Settings" class="button button-primary button-large">
+		</p>
+
+		<p style="clear:both;"></p>
+   </form>
+   </div>
+
+   <div class="sidebar-container" style="width:30%;float:right; background-color: #FFFFFF;border: 1px solid #E5E5E5;border-radius: 0;font-size: 15px;margin-bottom: 15px;padding: 0;position: relative;text-align: left;">
+	<div class="sidebar-content" style="padding:14px;">
+		<p><?php _e( 'Get notified about updates and of the Pro version.'); ?></p>
+
+		<form target="_blank" method="post" action="http://mayvik.us2.list-manage1.com/subscribe/post?u=927eadd7a0cb4d4e8d9057240&id=4404ee12f8" novalidate>
+			<p>
+				<input type="email" placeholder="Your email address" class="large-text" name="EMAIL">
+			</p>
+			<p>
+				<input type="submit" class="button-primary" name="subscribe" value="Keep Me Updated">
+			</p>
+		</form>
+	</div>
+</div>
+
+<div style="clear:both;"></div>
+
+<div class="sidebar-container" style="width:30%;float:right; background-color: #FFFFFF;border: 1px solid #E5E5E5;border-radius: 0;font-size: 15px;margin-bottom: 15px;padding: 0;position: relative;text-align: left;">
+	<div class="sidebar-content" style="padding:14px;">
+		<p>
+			<?php _e('Please help us get noticed with a rating and short review.','step-by-step'); ?>
+		</p>
+
+		<a href="http://wordpress.org/support/view/plugin-reviews/step-by-step" class="button-primary" target="_blank">
+			<?php _e('Rate this plugin on WordPress.org','step-by-step'); ?></a>
+	</div>
+</div>
+
+<div style="clear:both;"></div>
+
+<div class="sidebar-container" style="width:30%;float:right; background-color: #FFFFFF;border: 1px solid #E5E5E5;border-radius: 0;font-size: 15px;margin-bottom: 15px;padding: 0;position: relative;text-align: left;">
+	<div class="sidebar-content" style="padding:14px;">
+		<p>
+			<?php _e('For feature request or help?','step-by-step'); ?>
+		</p>
+		<p>
+			<a href="http://wordpress.org/support/plugin/step-by-step" class="button-primary" target="_blank">
+				<?php _e('Visit our Community Support Forums','step-by-step'); ?></a>
+		</p>
+	</div>
+</div>
+
+<div style="clear:both;"></div>
+
+ </div>
+ <?php
+}
 add_filter( 'post_updated_messages', 'sbs_updated_messages' );
 
 function sbs_updated_messages( $messages ) {
@@ -116,7 +250,7 @@ function steps_meta_box($post, $args) {
 				
 				<p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"><?php echo  $steps_meta['step_title'][$key];?></textarea></span></p>
 				
-				<p>Note<span style="color:red;">*</span><br> <span><input type="text" size="40" value="<?php echo $steps_meta['note'][$key];?>" name="note[]" id="note"></span></p>
+				<p>Note<br> <span><input type="text" size="40" value="<?php echo $steps_meta['note'][$key];?>" name="note[]" id="note"></span></p>
 				<p>
 				<?php
 				if(isset($steps_meta['step_image'][$key]) && !empty($steps_meta['step_image'][$key])) {
@@ -124,10 +258,10 @@ function steps_meta_box($post, $args) {
 				?>
 					<img style="vertical-align: middle;" src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">&nbsp;&nbsp;<a href="javascript:void(0);" alt="Remove" title="Remove" onclick="return remove_attachement('<?php echo $steps_meta['step_image'][$key];?>',<?php echo $post->ID;?>,'<?php echo $i;?>')">Remove</a>
 					<img id="loader" style="display: none;margin: 0 auto;text-align: center;" src="<?php echo plugins_url()?>/step-by-step/includes/images/loader.gif" />
-					<p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+					<p>Image<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
 				<?php }else { ?>
 				</p>
-				<p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+				<p>Image<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
 				<?php } ?>
 			</div>
 			<?php
@@ -140,8 +274,8 @@ function steps_meta_box($post, $args) {
 			
 			<p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"></textarea></span></p>
 			
-			<p>Note<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p>
-			<p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+			<p>Note<br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p>
+			<p>Image<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
 		</div>
 		<?php } ?>
 	</div>
@@ -182,7 +316,7 @@ function addmorediv()
 {
 	var cnt = jQuery('#step_count').val();
 	cnt = parseInt(cnt)+1;
-	jQuery('#mainstep').append('<div id="step'+cnt+'" style="padding-top:10px;background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);"><p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv(\'step'+cnt+'\');">- Delete Step</a></p><p>Step<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="step[]" id="step"></span></p><p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"></textarea></span></p><p>Note<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p><p>Image<span style="color:red;">*</span><br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p></div>');
+	jQuery('#mainstep').append('<div id="step'+cnt+'" style="padding-top:10px;background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);"><p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv(\'step'+cnt+'\');">- Delete Step</a></p><p>Step<span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="step[]" id="step"></span></p><p>Body<span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title" rows="4" cols="40"></textarea></span></p><p>Note<br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p><p>Image<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p></div>');
 	jQuery('#step_count').val(cnt);
 }
 function removeDiv(divId)
@@ -328,6 +462,7 @@ function disable_autosave() {
         wp_deregister_script( 'autosave' );
 }
 function article_func( $atts ) {
+	
    	if(isset($atts['id']))
 	{
 		$post_id = sanitize_text_field( $atts['id'] );
@@ -336,8 +471,8 @@ function article_func( $atts ) {
 		
 		$thumb_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium');
 		$article_steps_meta = get_post_meta($post_id, 'meta-step', true);
-		
-		$string ='<table cellspacing="5" cellpadding="5" border="0" >';
+		$string ='<div>';
+		$string .='<table cellspacing="5" cellpadding="5" border="0" >';
 		$string .= '<tr><td colspan="2" valign="top"><strong>'.$post->post_title.'</strong></td></tr>';
 
 		if(isset($thumb_image_url[0])){
@@ -365,11 +500,12 @@ function article_func( $atts ) {
 			$string .='</tr></table></td></tr></table>';
 		}
 		
-		echo $string .=' </div>';
+		return $string .=' </div>';
 	}
 }
 add_shortcode( 'display_article', 'article_func' );
-
+/*Uncomment to use the alternative guide instead of artcle without breaking legacy guides. kmb*/
+//add_shortcode( 'display_guide', 'article_func' );
 
 add_filter('single_template', 'my_custom_template');
 

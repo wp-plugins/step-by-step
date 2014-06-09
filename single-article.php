@@ -19,6 +19,7 @@ get_header(); ?>
 				$article_steps_meta = get_post_meta($post->ID, 'meta-step', true);
 		
 				$string ='<table cellspacing="5" cellpadding="5" border="0" >';
+				$string .= '<tr><td colspan="2" valign="top">'. _e('<strong><font color="red">This is only a preview. Use the shortcode to display this guide on a page or post.</font></strong>') .'</td></tr>';
 				$string .= '<tr><td colspan="2" valign="top"><strong>'.get_the_title($post->ID).'</strong></td></tr>';
 
 				if(isset($thumb_image_url[0])){
