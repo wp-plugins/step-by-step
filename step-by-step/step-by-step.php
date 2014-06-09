@@ -93,7 +93,7 @@ function custom_post_type()
 		'publicly_queryable' => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
-		'rewrite'            => array('slug'=>'guides','with_front'=>false),
+		'rewrite'            => array('slug'=>'article','with_front'=>false),
 		'query_var'          => true,
 		'capability_type'    => 'post',
 		'has_archive'        => true,
