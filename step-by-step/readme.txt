@@ -69,6 +69,9 @@ A. Yes.
 Q. Does this work inside of the standard WYSIWYG interface?
 A. Yes and No. The step-by-step admin interface called 'Guides' is separate from the standard WYSIWYG interface. Once guides containing steps have been created, the shortcode can be place anywhere you wish.
 
+Q. I did an update and now guide preview doesn’t work, what can I do?
+A. At this time guide previews may 404 for guides created using earlier versions. Guides created after a plugin update should preview fine.
+
 [Visit the complete FAQ at kylembrown.com/step-by-step](http://kylembrown.com/step-by-step?utm_source=wordpress_org&utm_medium=link&utm_campaign=step_by_step) for additional help and troubleshooting tips.
 
 == Screenshots ==
