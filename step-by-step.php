@@ -11,7 +11,7 @@
  * Plugin Name:       Step by Step
  * Plugin URI:        http://kylembrown.com/step-by-step
  * Description:       Create step-by-step instructions with images and display them on WordPress post or pages.
- * Version:           0.2.0
+ * Version:           0.2.2
  * Author:            Kyle M. Brown
  * Author URI:        http://kylembrown.com/step-by-step
  * Text Domain:       step-by-step
@@ -93,7 +93,7 @@ function custom_post_type()
 		'publicly_queryable' => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
-		'rewrite'            => array('slug'=>'article','with_front'=>false),
+		'rewrite'            => array('slug'=>'guide','with_front'=>false),
 		'query_var'          => true,
 		'capability_type'    => 'post',
 		'has_archive'        => true,
@@ -254,7 +254,9 @@ function steps_meta_box($post, $args) {
 				<p>
 				<?php
 				if(isset($steps_meta['step_image'][$key]) && !empty($steps_meta['step_image'][$key])) {
-					$image_attributes = wp_get_attachment_image_src( $steps_meta['step_image'][$key] ); 
+					$image_attributes = wp_get_attachment_image_src( $steps_meta['step_image'][$key],array(100,100) ); 
+					$attr = get_the_post_thumbnail($steps_meta['step_image'][$key], 'thumbnail');
+					
 				?>
 					<img style="vertical-align: middle;" src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">&nbsp;&nbsp;<a href="javascript:void(0);" alt="Remove" title="Remove" onclick="return remove_attachement('<?php echo $steps_meta['step_image'][$key];?>',<?php echo $post->ID;?>,'<?php echo $i;?>')">Remove</a>
 					<img id="loader" style="display: none;margin: 0 auto;text-align: center;" src="<?php echo plugins_url()?>/step-by-step/includes/images/loader.gif" />
@@ -423,9 +425,13 @@ function prfx_meta_save( $post_id ) {
 
 				// Insert the attachment.
 				$attach_id = wp_insert_attachment( $attachment, $imagename, $post_id );
+							
+				// get the attachemnet image relative path for genrate the image metadata
+				$attachment_image_path = $uploads['path'] . '/' . basename($uploaded_file['file'] );
 
 				// Generate the metadata for the attachment, and update the database record.
-				$attach_data = wp_generate_attachment_metadata( $attach_id, $imagename );
+				$attach_data = wp_generate_attachment_metadata( $attach_id, $attachment_image_path );
+					
 				wp_update_attachment_metadata( $attach_id, $attach_data );
 				$attached_file_array[$key] =  $attach_id;
 
