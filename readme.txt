@@ -82,7 +82,7 @@ A. This appears to be a WordPress error and we have found two workarounds.
 == Screenshots ==
 
 1. Use the standard WYSIWYG editor for background type of information. 
-2. Guides made up of steps are managed their own section. 
+2. Guides made up of steps are managed in their own section. 
 3. Each step is created in its own separate module.
 4. Give your guide a title and add some background information.
 5. Add or remove steps at anytime.
