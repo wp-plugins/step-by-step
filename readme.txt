@@ -60,20 +60,20 @@ You can install this plugin one of three ways:
 
 == Frequently Asked Questions ==
 
-Q. How do I get the steps on a page or post?  
+Q. How do I get the steps on a page or post?<br/>
 A. Once the steps are created and saved from the 'Guides' interface, a shortcode is automatically generated. This shortcode can be placed in a post or a page.
 
-Q. Can I place photos in each step?  
+Q. Can I place photos in each step?<br/>
 A. Yes.
 
-Q. Does this work inside of the standard WYSIWYG interface?  
+Q. Does this work inside of the standard WYSIWYG interface?<br/>
 A. Yes and No. The step-by-step admin interface called 'Guides' is separate from the standard WYSIWYG interface. Once guides containing steps have been created, the shortcode can be place anywhere you wish.
 
-Q. I did an update and now guide preview doesn’t work, what can I do?  
+Q. I did an update and now guide preview doesn’t work, what can I do?<br/>
 A. At this time guide previews may 404 for guides created using earlier versions. Guides created after a plugin update should preview fine.
 
-Q. When I click view it shows a 404 error page.  
-A. This appears to be a WordPress error and we have found two workarounds.
+Q. When I click view it shows a 404 error page.<br/>
+A. This appears to be a WordPress error and we have found two workarounds.<br/>
   *Visit the "Permalink" page and then try to view your guide again.
   *Change your guide to "draft" instead of "published" and use the "preview" feature instead.
 
@@ -82,7 +82,7 @@ A. This appears to be a WordPress error and we have found two workarounds.
 == Screenshots ==
 
 1. Use the standard WYSIWYG editor for background type of information. 
-2. Guides made up of steps are managed in their own section. 
+2. Guides made up of steps are managed their own section. 
 3. Each step is created in its own separate module.
 4. Give your guide a title and add some background information.
 5. Add or remove steps at anytime.
@@ -90,6 +90,10 @@ A. This appears to be a WordPress error and we have found two workarounds.
 7. Completed page displaying a guide made up of step-by-step instructions.
 
 == Upgrade Notice ==
+
+= 0.2.3 =
+
+* Minor bug fixes
 
 = 0.2.2 =
 
@@ -109,6 +113,10 @@ Added the ability to preview a guide before publishing. Corrected bugs that were
 Release to the public.
 
 == Changelog ==
+
+= 0.2.3 =
+
+* Minor bug fixes
 
 = 0.2.2 =
 
