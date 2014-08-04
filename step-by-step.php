@@ -11,7 +11,7 @@
  * Plugin Name:       Step by Step
  * Plugin URI:        http://kylembrown.com/step-by-step
  * Description:       Create step-by-step instructions with images and display them on WordPress post or pages.
- * Version:           0.2.4
+ * Version:           0.2.5
  * Author:            Kyle M. Brown
  * Author URI:        http://kylembrown.com/step-by-step
  * Text Domain:       step-by-step

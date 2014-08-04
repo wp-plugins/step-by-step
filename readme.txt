@@ -91,6 +91,10 @@ A. This appears to be a WordPress error and we have found two workarounds.
 
 == Upgrade Notice ==
 
+= 0.2.5 =
+
+* Edits for language support
+
 = 0.2.4 =
 
 * Minor bug fixes
@@ -117,6 +121,10 @@ Added the ability to preview a guide before publishing. Corrected bugs that were
 Release to the public.
 
 == Changelog ==
+
+= 0.2.5 =
+
+* Edits for language support
 
 = 0.2.4 =
 
