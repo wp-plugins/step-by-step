@@ -11,7 +11,7 @@
  * Plugin Name:       Step by Step
  * Plugin URI:        http://kylembrown.com/step-by-step
  * Description:       Create step-by-step instructions with images and display them on WordPress post or pages.
- * Version:           0.2.5
+ * Version:           0.2.6
  * Author:            Kyle M. Brown
  * Author URI:        http://kylembrown.com/step-by-step
  * Text Domain:       step-by-step
@@ -421,7 +421,7 @@ function prfx_meta_save( $post_id ) {
 					'post_status'    => 'inherit'
 				);
 
-				$imagename =  $uploads['url'] . '/' . basename($uploaded_file['file'] );
+				$imagename =  $uploads['path'] . '/' . basename($uploaded_file['file'] );
 
 				// Insert the attachment.
 				$attach_id = wp_insert_attachment( $attachment, $imagename, $post_id );
