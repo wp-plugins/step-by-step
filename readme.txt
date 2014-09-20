@@ -91,6 +91,10 @@ A. This appears to be a WordPress error and we have found two workarounds.
 
 == Upgrade Notice ==
 
+= 0.2.8 =
+
+* Added new images
+
 = 0.2.7 =
 
 * Tested with WordPress 4.0
@@ -129,6 +133,10 @@ Added the ability to preview a guide before publishing. Corrected bugs that were
 Release to the public.
 
 == Changelog ==
+
+= 0.2.8 =
+
+* Added new images
 
 = 0.2.7 =
 
