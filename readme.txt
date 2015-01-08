@@ -3,7 +3,7 @@ Contributors: kmb40
 Donate link: http://www.kylembrown.com/step-by-step
 Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown, recipes
 Requires at least: 3.6.1
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -91,6 +91,10 @@ A. This appears to be a WordPress error and we have found two workarounds.
 
 == Upgrade Notice ==
 
+= 0.2.9 =
+
+* Tested with WordPress 4.1
+
 = 0.2.8 =
 
 * Added new images
@@ -133,6 +137,10 @@ Added the ability to preview a guide before publishing. Corrected bugs that were
 Release to the public.
 
 == Changelog ==
+
+= 0.2.9 =
+
+* Tested with WordPress 4.1
 
 = 0.2.8 =
 
