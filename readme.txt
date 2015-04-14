@@ -27,7 +27,7 @@ Display your data step-by-step style with images and display them on your post o
 * Can be used to display anything requiring step-by-step instructions.
 * E.g. Manuals, procedures, guidelines, How-to's, math instructions, recipes, and more.
 
-Pro – Features
+###Pro – Features###
 
 * Enlarge images with modal windows.
 * Use the native WordPress image feature to upload and store images.
@@ -38,7 +38,7 @@ Pro – Features
 * Responsive layout.
 * Custom categories and slugs in the url.
 
-[Get notified of updates and the release of the Pro version early release.](http://eepurl.com/VZ1mL/)
+[Get notified of updates and the release of the Pro version early release.](http://eepurl.com/VZ1mL)
 
 
 == Installation ==
