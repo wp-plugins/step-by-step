@@ -27,6 +27,20 @@ Display your data step-by-step style with images and display them on your post o
 * Can be used to display anything requiring step-by-step instructions.
 * E.g. Manuals, procedures, guidelines, How-to's, math instructions, recipes, and more.
 
+Pro – Features
+
+* Enlarge images with modal windows.
+* Use the native WordPress image feature to upload and store images.
+* Annotate and edit images inside of the browser.
+* Change the front end layout of the steps to vertical similar to wikihow.com
+* Add rich meta (links, bold, etc) to the body area.
+* Publish directly to stand alone guide pages without using shortcodes.
+* Responsive layout.
+* Custom categories and slugs in the url.
+
+[Get notified of updates and the release of the Pro version early release.](http://eepurl.com/VZ1mL)
+
+
 == Installation ==
 
 You can install this plugin one of three ways:
