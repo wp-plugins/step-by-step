@@ -1,0 +1,111 @@
+/*DL, DT, DD TAGS LIST DATA*/
+dl {
+    margin-bottom:50px;
+}
+ 
+dl dt {
+    background:#5f9be3;
+    color:#fff;
+    float:left;
+    font-weight:bold;
+    margin-right:10px;
+    padding:5px; 
+    width:58px;
+}
+ 
+dl dd {
+    margin:2px 0;
+    padding:5px 0;
+}
+
+/*
+.fullArticle dt {
+    font-size: 15px;
+    min-width: 9px;
+    position: relative;
+    top: 2px;
+}
+.fullArticle dt {
+    background: none repeat scroll 0 0 #3197d1;
+}
+.fullArticle dt {
+    border-radius: 50px;
+    color: #ffffff;
+    display: inline-block;
+    float: left;
+    font-weight: 400;
+    line-height: 1.2em;
+    margin-bottom: 1em;
+    padding: 4px 9px;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+*/
+
+.fullArticle dl {
+	margin-bottom:50px;
+}
+.fullArticle dl dt {
+	background:#5f9be3;
+	color:#fff;
+	float:left;
+	font-weight:bold;
+	margin-right:10px;
+	min-width: 28px;
+	padding:5px;
+	width: auto; /* Don't set width here. Was width: 58px */
+}
+.fullArticle dl dd {
+	margin:2px 0;
+	padding:5px 0;
+}
+ 
+.fullArticle dt {
+	font-size: 15px;
+	min-width: 9px;
+	position: relative;
+	top: 2px;
+	background: none repeat scroll 0 0 #3197d1;
+	border-radius: 50px;
+	color: #ffffff;
+	display: inline-block;
+	float: left;
+	font-weight: 400;
+	line-height: 1.2em;
+	margin-bottom: 1em;
+	padding: 4px 9px;
+	text-align: center;
+	vertical-align: baseline;
+	white-space: nowrap;
+} 
+
+.fullArticle .grid-container{
+	margin-bottom:20px;
+}
+.fullArticle .grid-container .grid-img{
+	float:left;margin-right: 10px;width:25%;
+}
+.fullArticle .grid-container .grid-detail{
+	float: right;width:60%;margin-top: -5px;	
+}
+
+.dd-list-view {
+    margin: 0 0 5px 45px !important;
+    padding-top: 3px !important;
+}
+
+.dd-list-view p{
+margin-top:-4px !important; 
+}
+
+
+.display-hlist{
+	clear: none !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
