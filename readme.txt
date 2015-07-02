@@ -1,7 +1,7 @@
 === Step by Step ===
 Contributors: kmb40
 Donate link: http://www.kylembrown.com/step-by-step
-Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown, recipes
+Tags: step-by-step, steps, documentation, documents, process, procedure, SOP, SOD, landscape, shortcode, faq, instructions, image, images, photo, photos, lessons, guide, knowledge base, tutorial, how to, kyle m brown, recipes, wiki, wikipedia
 Requires at least: 3.6.1
 Tested up to: 4.2
 Stable tag: trunk
