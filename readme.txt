@@ -27,7 +27,7 @@ Display your data step-by-step style with images and display them on your post o
 * Can be used to display anything requiring step-by-step instructions.
 * E.g. Manuals, procedures, guidelines, How-to's, math instructions, recipes, and more.
 
-[###Pro – Features###](www.wpdocs.co?utm_source=wordpress_org_descpage&utm_medium=link&utm_campaign=step_by_step)
+[###Pro – Features###](http://www.wpdocs.co?utm_source=wordpress_org_descpage&utm_medium=link&utm_campaign=step_by_step)
 
 * Enlarge images with modal windows.
 * Use the native WordPress image feature to upload and store images.
